@@ -1,0 +1,34 @@
+import structure5.*;
+import java.util.Random;
+import java.util.Scanner;
+
+class WordGen {
+
+    public static void main(String[] args) {
+
+	// Get the text and put it into a string
+	Scanner in = new Scanner(System.in);
+	StringBuffer textBuffer = new StringBuffer();
+	while (in.hasNextLine()){
+	    String line = in.nextLine();
+	    textBuffer.append(line);
+	    textBuffer.append("\n");
+	}
+	String text = textBuffer.toString();
+	
+	// Text is now the full contents of the input, create a table
+	Table thisTable = new Table(text);
+	String phrase = "the";
+
+	// Generate a random string of 5 characters using the Table
+	String nextChar;
+	System.out.print(phrase);
+	for (int i = 0; i<500; i++) {
+	    nextChar = thisTable.getNext(phrase);
+	    phrase = phrase.substring(1) + nextChar;
+	    System.out.print(nextChar);
+	}
+
+    }
+
+}
