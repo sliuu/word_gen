@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 class WordGen {
 
-    public static void main(String[] args) {
+    protected int level; // The level of accuracy 
 
-	int level = 3;
-	
+    public WordGen(int level){
+
+	this.level = level;
+	Random r = new Random();
+
 	// Get the text and put it into a string
 	Scanner in = new Scanner(System.in);
 	StringBuffer textBuffer = new StringBuffer();
@@ -20,21 +23,30 @@ class WordGen {
 
 	// Text is now the full contents of the input, create a table
 	Table thisTable = new Table(text, level);
-	String phrase = "theeeeee";
-	phrase = phrase.substring(0, level);
+	
+	String phrase = ""; // Make the starting "level" number of letters
 	
 	String nextChar; // Stores the next character to be added to the text
-	System.out.print(phrase); // Start with the given phrase
-
+	for (int i = 0; i<level; i++) {
+	    phrase = phrase + "" + text.charAt(r.nextInt(text.length())); // Start with the given phrase
+	}
+	
 	// Get the next character from the Table "length" number of times
 	int length = 5000;
-	for (int i = 0; i<length; i++) { 
+	
+	for (int i = 0; i<length; i++) {	    
 	    nextChar = thisTable.getNext(phrase);
 	    // After getting the next character, change the starting phrase and feed that back to the Table class to get the next character
 	    phrase = phrase.substring(1) + nextChar;
 	    System.out.print(nextChar);
 	}
 
+    }
+    public static void main(String[] args) {
+
+        int theLevel = Integer.parseInt(args[0]); // Trust me java, it's an integer
+	WordGen thisWordGen = new WordGen(theLevel); // Run the constructor
+	
     }
 
 }
