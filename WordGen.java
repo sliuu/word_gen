@@ -32,7 +32,7 @@ class WordGen {
 	}
 	
 	// Get the next character from the Table "length" number of times
-	int length = 5000;
+	int length = 40000;
 	
 	for (int i = 0; i<length; i++) {	    
 	    nextChar = thisTable.getNext(phrase);
