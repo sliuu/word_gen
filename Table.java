@@ -14,13 +14,34 @@ public class Table {
 	tableOne = new Vector<Association<String, FrequencyList>>();
 	
 	String key; // The key will be each "level"-letter string in the text, that we will create a FrequencyList for
-
-	// Look at every 3-letter combination in the phrase and add it to the vector
-	for (int i = 0; i < text.length()-level; i++){
-	    key = text.substring(i, i+level);
-	    tableOne.add(new Association(key, new FrequencyList(key, text, level)));
-	}
+	int index = 0; // The index we will be changing every time we run the loop
+	int position = 0; // The position of the next word
 	
+	// If using word-level analysis, do this:
+	if (level >= 90) {
+	    
+	    // Look for every word in the text and add it to the vector
+	    while ( theText.indexOf(" ", index) > 0) {
+		position = theText.indexOf(" ", index); // Look for the space after the word we're going to add
+		key = theText.substring(index, position); // Store the word
+		
+		if (tableOne.indexOf(new Association(key)) == -1){ // Only add it to the vector if it doesn't already exist
+		    tableOne.add(new Association(key, new FrequencyList(key, text + " ", level)));
+		}
+		index = theText.indexOf(" ", index) + 1; // Move the index over one
+	    }
+	}
+	else { // If not using word-level anlysis, do this:
+	    
+	    // Look at every 3-letter combination in the text and add it to the vector
+	    for (int i = 0; i < text.length()-level; i++){
+		key = text.substring(i, i+level);
+		
+		if (tableOne.indexOf(new Association(key)) == -1){ // Only add it to the vector if it doesn't already exist
+		    tableOne.add(new Association(key, new FrequencyList(key, text, level)));
+		} 
+	    }
+	}
     }
 
     // Generate a next random character using the probabilites 
@@ -42,5 +63,27 @@ public class Table {
 	return theChar;
 	
     }
-    
+
+    // Generate the next word using the probabilities
+    public String getNextWord(String theKey) {
+
+	String randLetters = theText; // Store the text we're using to create the random words
+	Random r = new Random(); // Random number generator
+	String theWord; // Store the next word that will be returned
+	int position; // For storing the random number that is generated
+	
+	int index = tableOne.indexOf(new Association(theKey)); // Look for the Association with theKey
+	
+	if (index >= 0) { // If there as an Association in the vector that refers to this key, then get a next random word
+	    FrequencyList freqList = tableOne.get(index).getValue(); // Get the FrequencyList
+	    theWord = freqList.randNextWord();
+	} else { // If that "level"-letter string doesn't appear in the text, just generate the first word
+	    theWord =  theText.substring(0, theText.indexOf(" "));
+	    return theWord;
+	}
+	
+	return theWord;
+
+    }
+       
 }
