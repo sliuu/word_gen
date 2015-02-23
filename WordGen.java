@@ -1,4 +1,5 @@
 /*
+
 Stephanie Liu 
 CS136
 
@@ -31,7 +32,7 @@ class WordGen {
 	while (in.hasNextLine()){
 	    String line = in.nextLine();
 	    textBuffer.append(line);
-	    textBuffer.append(" "); 
+	    textBuffer.append("\n"); 
 	}
 	String text = textBuffer.toString();
 

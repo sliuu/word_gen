@@ -24,12 +24,8 @@ public class FrequencyList {
 	String newKey; // The string we will be looking for in case there are multiple occurences
 	int multProbs; // Probabilities for a multiple occurence of a string
 
-	// System.out.println(text.indexOf(phrase, start)); // For testing purposes
-
 	while (text.indexOf(phrase, start) >= 0) {  // Look for the phrase in the text
 
-	    //prob++; // Count the number of times you find the phrase in the text
-	    
 	    theChar = text.substring(text.indexOf(phrase, start) + level, text.indexOf(phrase, start) + level + 1); // Get the character preceding the phrase
 
 	    charIndex = tableTwo.indexOf(new Association(theChar)); // Look to see if the character already has an Association
