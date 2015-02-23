@@ -15,14 +15,10 @@ public class Table {
 	
 	String key; // The key will be each "level"-letter string in the text, that we will create a FrequencyList for
 
-	// Scanner in = new Scanner(System.in); // For testing purposes
-	
 	// Look at every 3-letter combination in the phrase and add it to the vector
 	for (int i = 0; i < text.length()-level; i++){
 	    key = text.substring(i, i+level);
 	    tableOne.add(new Association(key, new FrequencyList(key, text, level)));
-	    
-	    //System.out.println(key); // For testing purposes
 	}
 	
     }
@@ -35,18 +31,16 @@ public class Table {
 	String theChar; // Store the next character that will be returned
 	
 	int index = tableOne.indexOf(new Association(theKey)); // Look for the Association with theKey
+	
 	if (index >= 0) { // If there as an Association in the vector that refers to this key, then get a next random character
 	    FrequencyList freqList = tableOne.get(index).getValue(); // Get the FrequencyList
 	    theChar = freqList.randNext();
 	} else { // If that "level"-letter string doesn't appear in the text, just generate a random character from the text
 	    theChar =  "" + theText.charAt(r.nextInt(theText.length()));
 	}
-	return theChar;
-    }
-    // public static void main(String[] args) { // For testing purposes
 	
-    //	Table theTable = new Table("their house was very big");
-    //	System.out.println(theTable.getNext("the"));
-    // }
-
+	return theChar;
+	
+    }
+    
 }

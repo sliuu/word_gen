@@ -11,8 +11,6 @@ Problems
 
 */
 
-
-
 import structure5.*;
 import java.util.Random;
 import java.util.Scanner;
@@ -23,6 +21,7 @@ class WordGen {
 
     public WordGen(int level){
 
+	// Store what level we're on, make a new random generator
 	this.level = level;
 	Random r = new Random();
 
@@ -39,16 +38,19 @@ class WordGen {
 	// Text is now the full contents of the input, create a table
 	Table thisTable = new Table(text, level);
 	
-	String phrase = ""; // Make the starting "level" number of letters
+	String phrase = ""; // Make the starting "level"-number of letters
 	
 	String nextChar; // Stores the next character to be added to the text
+
+	// Create the starting phrase using a random number generator and the probabilities of characters in the text
 	for (int i = 0; i<level; i++) {
 	    phrase = phrase + "" + text.charAt(r.nextInt(text.length())); // Start with the given phrase
 	}
 	
 	// Get the next character from the Table "length" number of times
 	int length = 10000;
-	
+
+	// Create the randomly generated text
 	for (int i = 0; i<length; i++) {	    
 	    nextChar = thisTable.getNext(phrase);
 	    // After getting the next character, change the starting phrase and feed that back to the Table class to get the next character
@@ -59,7 +61,7 @@ class WordGen {
     }
     public static void main(String[] args) {
 
-	if (args.length == 0) {
+	if (args.length == 0) { 
 	    // no args, so print usage line
 	    System.out.println("Usage: java WordGen 4");
 	    WordGen thisWordGen = new WordGen(4); // Run the constructor
